@@ -1,0 +1,4 @@
+git add .
+git commit -m "Any commit here" //to memories 
+git push
+//to save
