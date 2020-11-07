@@ -101,3 +101,139 @@ db.person.update( {
 
 //add person 
 db.person.find({name: 'John'}).pretty()
+
+//$gt 
+db.person.find(
+...    {
+...       age: {  $gt: 27}
+... }
+... ).count()
+
+//$in
+db.person.find(
+...   {
+...     kids: { $in: ['Rome', 'Milian']}
+...   }
+... ).pretty()
+
+//atualizar Multiple elements/ doc/ field
+db.person.update(
+...    {},
+...    {
+...       $set: { job: 'yes'}
+...   },
+... { 
+...    multi: true
+...  }
+
+//new version
+db.person.updateMany(
+...   {},
+...    {
+...       $set: { job: false}
+... 
+... }
+
+//get index []
+db.person.getIndexes() //formul
+[
+        {
+                "v" : 2,
+                "key" : {
+                        "_id" : 1
+                },
+                "name" : "_id_",
+                "ns" : "people.person"
+        }
+]
+//creating index
+db.person.createIndex(
+... {
+...    name: 'text', surname: 'text'
+... }
+... )
+
+//to search the index with name
+db.person.find(
+... {
+...   $text:  { $search: 'john'}
+... }
+... ).pretty()
+
+//using update new field for register ??nao era pra funcionar
+//sobrescreve o nome 'John' 
+db.person.update(
+... {
+...   name: 'John'
+... },
+...  { 
+...    position: 'java programmer'
+... }
+... )
+
+//the correct way, atualizar o exit ou fazer se nao exist
+ db.person.update(
+...   {
+...     _id: ObjectId("5fa52fdb9b47c71b5a8d86be")
+... },
+...   {
+...     name: 'John',
+...    surname: 'Gaga'
+...   },
+...   {
+...    upsert: true
+...   }
+... )
+
+//create collections
+db.createCollection('books')
+//show collections
+ show collections
+ //insert new book in books
+ db.books.insert(
+...   {
+...     name: 'Harry Potter',
+...     likes: 1
+...   }
+...  )
+//to show new book in books
+db.books.find().pretty()
+
+//to inc by 1 
+db.books.update(
+...  {
+...    name: 'Harry Potter',
+...  },
+...  {
+...    $inc: { likes: 1} //can put any value here to inc
+...  }
+... )
+
+//put likes on john with $inc and create new field using upsert
+  db.person.find().pretty()
+{
+        "_id" : ObjectId("5fa52fdb9b47c71b5a8d86be"),
+        "name" : "John",
+        "surname" : "Gaga",
+        "likes" : 1
+}
+
+//to insert more data
+db.books.insert(
+       [
+         {name: "A"}, 
+	 {name: "B"}, 
+	 {name: "C"}, 
+    	 {name: "D"}, 
+         {name: "E"}, 
+         {name: "F"},
+         {name: "G"}, 
+         {name: "H"}, 
+         {name: "I"}, 
+         {name: "J"}, 
+         {name: "K"}, 
+         {name: "J"}
+       ]
+)
+//using with skip
+db.books.find().limit(5) // to show number books that i want
