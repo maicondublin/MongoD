@@ -237,3 +237,18 @@ db.books.insert(
 )
 //using with skip
 db.books.find().limit(5) // to show number books that i want
+
+//to skip to show the page that you want
+db.books.find().limit(3).skip(3)
+
+//Delete/ remove from books
+db.books.remove(
+... {
+...   _id: ObjectId("5fa69b7a22169aa67ec8b692")
+... }
+... )
+// to remove all 
+db.books.({})
+
+//
+db.books.deleteMany({})
